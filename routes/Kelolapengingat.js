@@ -35,7 +35,7 @@ router.get('/', validasiToken, async (req, res) => {
     } catch (error) {
         res.status(400).send({
             'berhasil': false,
-            'pesan': "Gagal Mencari Data Pengingat"
+            'pesan': "Operasi Gagal Dijalankan"
         });
     }
 });
@@ -77,7 +77,7 @@ router.get('/:_id', validasiToken, async (req, res) => {
     } catch (error) {
         res.status(400).send({
             'berhasil': false,
-            'pesan': "Gagal Mencari Data Pengingat"
+            'pesan': "Operasi Gagal Dijalankan"
         });
     }
 });
@@ -123,7 +123,7 @@ router.post('/', validasiToken, async (req, res) => {
             } catch (error) {
                 return res.status(400).send({
                     'berhasil': false,
-                    'pesan': "Gagal Menyimpan Pengingat"
+                    'pesan': "Operasi Gagal Dijalankan"
                 });
             }
             //jika data pengguna tidak ditemukan
@@ -138,6 +138,99 @@ router.post('/', validasiToken, async (req, res) => {
         return res.status(400).send({
             'berhasil': false,
             'pesan': 'Pastikan Inputan Sesuai Standar'
+        });
+    }
+});
+
+router.delete('/', validasiToken, async (req, res) => {
+    //proses pengecekan error
+    try {
+        //mencari data pengguna dengan id yang diinputkan
+        const cekpengguna = await Pengguna.findOne({
+            _id: req.pengguna._id
+        });
+
+        //jika pengguna ditemukan
+        if (cekpengguna) {
+            const hapussemuapengingat = await Pengingat.deleteMany({
+                idpengguna: req.pengguna._id
+            });
+
+            if (hapussemuapengingat) {
+                return res.status(200).send({
+                    'berhasil': true,
+                    'pesan': "Berhasil Menghapus Pengingat"
+                });
+            } else {
+                return res.status(400).send({
+                    'berhasil': false,
+                    'pesan': "Gagal Menghapus Pengingat"
+                });
+            }
+            //jika pengguna tidak ditemukan
+        } else {
+            return res.status(400).send({
+                'berhasil': false,
+                'pesan': "Pengguna Tidak Ditemukan"
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
+            'berhasil': false,
+            'pesan': "Operasi Gagal Dijalankan"
+        });
+    }
+});
+
+router.delete('/:_id', validasiToken, async (req, res) => {
+    //proses pengecekan error
+    try {
+        //mencari data pengguna dengan id yang diinputkan
+        const cekpengguna = await Pengguna.findOne({
+            _id: req.pengguna._id
+        });
+
+        //jika pengguna ditemukan
+        if (cekpengguna) {
+            const datapengingat = await Pengingat.findOne({
+                _id: req.params._id,
+                idpengguna: req.pengguna._id
+            });
+
+            if (datapengingat) {
+                const hapuspengingat = await Pengingat.deleteOne({
+                    _id: req.params._id,
+                    idpengguna: req.pengguna._id
+                });
+
+                if (hapuspengingat) {
+                    return res.status(200).send({
+                        'berhasil': true,
+                        'pesan': "Pengingat Berhasil Dihapus"
+                    });
+                } else {
+                    return res.status(400).send({
+                        'berhasil': true,
+                        'pesan': "Pengingat Gagal Dihapus"
+                    });
+                }
+            } else {
+                return res.status(400).send({
+                    'berhasil': false,
+                    'pesan': "Pengingat Tidak Ditemukan"
+                });
+            }
+            //jika pengguna tidak ditemukan
+        } else {
+            return res.status(400).send({
+                'berhasil': false,
+                'pesan': "Pengguna Tidak Ditemukan"
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
+            'berhasil': false,
+            'pesan': "Operasi Gagal Dijalankan"
         });
     }
 });
