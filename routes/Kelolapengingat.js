@@ -6,13 +6,30 @@ const { validasiInputanpengingat } = require('../validasi/Validasiinputan');
 const Pengguna = require('../model/Pengguna');
 
 //inisialisasi routes kelola pengguna dengan middleware validasiToken
-router.get('/', validasiToken, (req, res) => {
-    return res.status(200).send({
-        pengingat: {
-            judul: 'tes judul pengingat',
-            isi: 'tes isi judul pengingat'
-        }
-    })
+router.get('/', validasiToken, async (req, res) => {
+    //mencari data pengguna dengan id yang diinputkan
+    const cekpengguna = await Pengguna.findOne({
+        _id: req.pengguna._id
+    });
+
+    //jika pengguna ditemukan
+    if (cekpengguna) {
+        const datapengingat = await Pengingat.find({
+            idpengguna: req.pengguna._id
+        });
+
+        return res.status(200).send({
+            'berhasil': true,
+            'pesan': "Berhasil Mendapatkan Data Pengingat",
+            'pengingat': datapengingat
+        });
+        //jika pengguna tidak ditemukan
+    } else {
+        return res.status(400).send({
+            'berhasil': false,
+            'pesan': "Pengguna Tidak Ditemukan"
+        });
+    }
 });
 
 router.post('/tambahpengingat', validasiToken, async (req, res) => {
@@ -21,16 +38,16 @@ router.post('/tambahpengingat', validasiToken, async (req, res) => {
 
     //jika inputan sesuai
     if (!error) {
-        //mencari data pengguna dengan email yang diinputkan
+        //mencari data pengguna dengan id yang diinputkan
         const cekpengguna = await Pengguna.findOne({
-            email: req.body.emailpengguna
+            _id: req.pengguna._id
         });
 
         //jika data pengguna ditemukan
         if (cekpengguna) {
             //inisialisasi data pengingat pengguna
             const datapengingat = new Pengingat({
-                emailpengguna: req.body.emailpengguna,
+                idpengguna: req.pengguna._id,
                 judul: req.body.judul,
                 isi: req.body.isi
             });

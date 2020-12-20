@@ -23,7 +23,6 @@ const validasiMasuk = data => {
 
 const validasiInputanpengingat = data => {
     const skemavalidasiInputanpengingat = Joi.object({
-        emailpengguna: Joi.string().required().email(),
         judul: Joi.string().required(),
         isi: Joi.string().required()
     });

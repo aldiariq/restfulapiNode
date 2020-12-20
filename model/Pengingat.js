@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 //inisialisasi skema
 const pengingatSchema = new mongoose.Schema({
-    emailpengguna: {
+    idpengguna: {
         type: String,
-        required: true,
+        required: true
     },
     judul: {
         type: String,
