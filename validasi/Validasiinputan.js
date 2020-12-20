@@ -21,6 +21,17 @@ const validasiMasuk = data => {
     return skemavalidasiMasuk.validate(data);
 }
 
+const validasiInputanpengingat = data => {
+    const skemavalidasiInputanpengingat = Joi.object({
+        emailpengguna: Joi.string().required().email(),
+        judul: Joi.string().required(),
+        isi: Joi.string().required()
+    });
+
+    return skemavalidasiInputanpengingat.validate(data);
+}
+
 //export module
 module.exports.validasiDaftar = validasiDaftar;
 module.exports.validasiMasuk = validasiMasuk;
+module.exports.validasiInputanpengingat = validasiInputanpengingat;
