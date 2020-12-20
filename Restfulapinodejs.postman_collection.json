@@ -1,0 +1,313 @@
+{
+	"info": {
+		"_postman_id": "931b512f-a83f-4e8d-bbf3-38fdee7f7f34",
+		"name": "Restfulapinodejs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "autentikasi",
+			"item": [
+				{
+					"name": "daftar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"nama\": \"test\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/autentikasi/daftar",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"autentikasi",
+								"daftar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "masuk",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/autentikasi/masuk",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"autentikasi",
+								"masuk"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "kelola pengingat",
+			"item": [
+				{
+					"name": "lihat pengingat",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tambah pengingat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\": \"tes input pengingat 2\",\n    \"isi\": \"tes input pengingat 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lihat satu pengingat",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/5fdf14855e73b51818c5fc60",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								"5fdf14855e73b51818c5fc60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hapus pengingat",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/5fdf14855e73b51818c5fc60",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								"5fdf14855e73b51818c5fc60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hapus semua pengingat",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ubah pengingat",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmRmMTQ1ODVlNzNiNTE4MThjNWZjNWYiLCJpYXQiOjE2MDg0NTUyNjd9.mj3dJYqjuIoOsmpki485htoKJVjy0I65Wddd4Q4DS94",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"judul\": \"ubah pengingat\",\n    \"isi\": \"ubah pengingat\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/pengingat/5fdf14855e73b51818c5fc60",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pengingat",
+								"5fdf14855e73b51818c5fc60"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "route utama",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -235,5 +235,61 @@ router.delete('/:_id', validasiToken, async (req, res) => {
     }
 });
 
+router.put('/:_id', validasiToken, async (req, res) => {
+    //proses pengecekan error
+    try {
+        //mencari data pengguna dengan id yang diinputkan
+        const cekpengguna = await Pengguna.findOne({
+            _id: req.pengguna._id
+        });
+
+        //jika pengguna ditemukan
+        if (cekpengguna) {
+            const datapengingat = await Pengingat.findOne({
+                _id: req.params._id,
+                idpengguna: req.pengguna._id
+            });
+
+            if (datapengingat) {
+                const ubahpengingat = await Pengingat.updateOne(
+                    {_id: req.params._id, idpengguna: req.pengguna._id},
+                    {
+                        judul: req.body.judul,
+                        isi: req.body.isi
+                    }
+                );
+
+                if (ubahpengingat) {
+                    return res.status(200).send({
+                        'berhasil': true,
+                        'pesan': "Pengingat Berhasil Diubah"
+                    });
+                } else {
+                    return res.status(400).send({
+                        'berhasil': false,
+                        'pesan': "Pengingat Gagal Diubah"
+                    })
+                }
+            } else {
+                return res.status(400).send({
+                    'berhasil': false,
+                    'pesan': "Pengingat Tidak Ditemukan"
+                });
+            }
+            //jika pengguna tidak ditemukan
+        } else {
+            return res.status(400).send({
+                'berhasil': false,
+                'pesan': "Pengguna Tidak Ditemukan"
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
+            'berhasil': false,
+            'pesan': "Operasi Gagal Dijalankan"
+        });
+    }
+});
+
 //export module
 module.exports = router;
