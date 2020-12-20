@@ -7,32 +7,82 @@ const Pengguna = require('../model/Pengguna');
 
 //inisialisasi routes kelola pengguna dengan middleware validasiToken
 router.get('/', validasiToken, async (req, res) => {
-    //mencari data pengguna dengan id yang diinputkan
-    const cekpengguna = await Pengguna.findOne({
-        _id: req.pengguna._id
-    });
-
-    //jika pengguna ditemukan
-    if (cekpengguna) {
-        const datapengingat = await Pengingat.find({
-            idpengguna: req.pengguna._id
+    //proses pengecekan error
+    try {
+        //mencari data pengguna dengan id yang diinputkan
+        const cekpengguna = await Pengguna.findOne({
+            _id: req.pengguna._id
         });
 
-        return res.status(200).send({
-            'berhasil': true,
-            'pesan': "Berhasil Mendapatkan Data Pengingat",
-            'pengingat': datapengingat
-        });
-        //jika pengguna tidak ditemukan
-    } else {
-        return res.status(400).send({
+        //jika pengguna ditemukan
+        if (cekpengguna) {
+            const datapengingat = await Pengingat.find({
+                idpengguna: req.pengguna._id
+            });
+
+            return res.status(200).send({
+                'berhasil': true,
+                'pesan': "Berhasil Mendapatkan Data Pengingat",
+                'pengingat': datapengingat
+            });
+            //jika pengguna tidak ditemukan
+        } else {
+            return res.status(400).send({
+                'berhasil': false,
+                'pesan': "Pengguna Tidak Ditemukan"
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
             'berhasil': false,
-            'pesan': "Pengguna Tidak Ditemukan"
+            'pesan': "Gagal Mencari Data Pengingat"
         });
     }
 });
 
-router.post('/tambahpengingat', validasiToken, async (req, res) => {
+router.get('/:_id', validasiToken, async (req, res) => {
+    //proses pengecekan error
+    try {
+        //mencari data pengguna dengan id yang diinputkan
+        const cekpengguna = await Pengguna.findOne({
+            _id: req.pengguna._id
+        });
+
+        //jika pengguna ditemukan
+        if (cekpengguna) {
+            const datapengingat = await Pengingat.findOne({
+                _id: req.params._id,
+                idpengguna: req.pengguna._id
+            });
+
+            if (datapengingat) {
+                return res.status(200).send({
+                    'berhasil': true,
+                    'pesan': "Berhasil Mendapatkan Data Pengingat",
+                    'pengingat': datapengingat
+                });
+            } else {
+                return res.status(400).send({
+                    'berhasil': false,
+                    'pesan': "Pengingat Tidak Ditemukan"
+                });
+            }
+            //jika pengguna tidak ditemukan
+        } else {
+            return res.status(400).send({
+                'berhasil': false,
+                'pesan': "Pengguna Tidak Ditemukan"
+            });
+        }
+    } catch (error) {
+        res.status(400).send({
+            'berhasil': false,
+            'pesan': "Gagal Mencari Data Pengingat"
+        });
+    }
+});
+
+router.post('/', validasiToken, async (req, res) => {
     //inisialisasi error dari skema validasi pengingat
     const { error } = validasiInputanpengingat(req.body);
 
