@@ -32,6 +32,7 @@ mongoose.connect(
 );
 
 //menjalankan server
-app.listen(3000, () => {
-    console.log('Server Berjalan Pada Port 3000');
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server Berjalan Pada Port ${port}`);
 });

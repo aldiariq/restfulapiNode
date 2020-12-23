@@ -95,11 +95,18 @@ router.post('/masuk', async (req, res) => {
                     _id: datamasuk._id
                 }, process.env.JWT_TOKEN);
 
-                return res.status(200).header({
-                    'auth-token': token
-                }).send({
+                const datapengguna = {
+                    _id: datamasuk._id,
+                    email: datamasuk.email,
+                    nama: datamasuk.nama,
+                    tanggaldaftar: datamasuk.tanggaldaftar
+                }
+
+                return res.status(200).send({
                     'berhasil': true,
-                    'pesan': 'Berhasil Masuk'
+                    'pesan': 'Berhasil Masuk',
+                    'auth-token': token,
+                    'pengguna': datapengguna
                 });
                 //jika password salah
             } else {
